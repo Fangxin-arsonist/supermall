@@ -30,12 +30,27 @@ export default {
             probeType:this.probetype,
             pullUpLoad:this.pullupload
         })
-        this.scroll.on('scroll',(position)=>{
-           this.$emit('scroll',position)
-        })
+        if(this.probetype ===2||this.probetype ===3){
+            this.scroll.on('scroll',(position)=>{
+            this.$emit('scroll',position)
+            })
+        }
+        if(this.pullupload == true){
         this.scroll.on('pullingUp',()=>{
             this.$emit('pullingUp')
-        })
+        })}
+    },
+    methods:{
+        scrollTo(x, y, time=500) {
+            this.scroll && this.scroll.scrollTo(x, y, time)
+        },
+        refresh() {
+            this.scroll && this.scroll.refresh()
+            console.log('123+refresh')
+        },
+        getscrollY(){
+            return this.scroll ? this.scroll.y : 0
+        }
     }
 }
 </script>
