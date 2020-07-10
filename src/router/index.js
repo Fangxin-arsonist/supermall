@@ -1,11 +1,43 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+const home =() => import('views/home/home')
+const category =() => import('views/category/category')
+const profile =() => import('views/profile/profile')
+const shopcart =() => import('views/shopcart/shopcart')
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
+  {
+    path: '',
+    redirect:'/home'
+  },
+  {
+    path:'/home',
+    component:home
+  }
+  ,
+  {
+    path:'/category',
+    component:category
+  }
+  ,
+  {
+    path:'/profile',
+    component:profile
+  }
+  ,
+  {
+    path:'/shopcart',
+    component:shopcart
+  }
 ]
+
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 
 const router = new VueRouter({
   mode: 'history',
